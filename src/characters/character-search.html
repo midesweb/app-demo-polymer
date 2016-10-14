@@ -1,0 +1,44 @@
+
+<dom-module id="character-search">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      p {
+        @apply(--layout-horizontal);
+      }
+      paper-input {
+        @apply(--layout-flex);
+      }
+      paper-icon-button {
+        margin: 15px 0 0 10px;
+      }
+      .lupa {
+        width: 10%;
+        min-width: 70px;
+      }
+    </style>
+    <p>
+      <paper-input label="Buscar" value="{{query}}"></paper-input> 
+      <span class="lupa">
+        <paper-icon-button icon="search" on-tap="search"></paper-icon-button>
+      </span> 
+    </p>
+  </template>
+  <script>
+    Polymer({
+      is: 'character-search',
+      properties: {
+        query: {
+          type: String,
+          value: ''
+        }
+      },
+
+      search: function() {
+        this.fire('do-search', this.query);
+      }
+    });
+  </script>
+</dom-module>

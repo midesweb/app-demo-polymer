@@ -21,19 +21,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       h1{
         @apply(--paper-font-headline);
       }
-      p {
-        @apply(--layout-horizontal);
-      }
-      paper-input {
-        @apply(--layout-flex);
-      }
-      paper-icon-button {
-        margin: 15px 0 0 10px;
-      }
-      .lupa {
-        width: 10%;
-        min-width: 70px;
-      }
     </style>
     <iron-ajax
       auto
@@ -45,12 +32,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </app-localstorage-document>
 
     <h1>Listado de personajes</h1>
-    <p>
-      <paper-input label="Buscar" value="{{q}}"></paper-input> 
-      <span class="lupa">
-        <paper-icon-button icon="search"></paper-icon-button>
-      </span> 
-    </p>
+    <character-search 
+      query="[[q]]"
+      on-do-search="doSearch"
+    ></character-search>
     <character-list 
       personajes="[[personajes.data.results]]"
       favoritos="[[favoritos]]" 
@@ -83,8 +68,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.splice('favoritos', index, 1);
         }
         this.$.elstore.save('fav');
-      }
+      },
 
+      doSearch: function(e, q) {
+        this.q = q;
+      }
     });
   </script>
 </dom-module>
