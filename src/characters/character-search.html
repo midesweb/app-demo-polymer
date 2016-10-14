@@ -4,27 +4,31 @@
     <style>
       :host {
         display: block;
-      }
-      p {
         @apply(--layout-horizontal);
       }
-      paper-input {
+      p {
+        display:flex;
+      }
+      div.campo {
         @apply(--layout-flex);
       }
-      paper-icon-button {
+      paper-icon-button, paper-spinner {
         margin: 15px 0 0 10px;
       }
       .lupa {
-        width: 10%;
-        min-width: 70px;
+        width: 20%;
+        display: flex;
       }
     </style>
-    <p>
-      <paper-input label="Buscar" value="{{query}}"></paper-input> 
-      <span class="lupa">
+    <div class="campo">
+      <paper-input label="Buscar" value="{{query}}"></paper-input>
+    </div>
+    <div class="lupa">
+      <div hidden="[[loading]]">
         <paper-icon-button icon="search" on-tap="search"></paper-icon-button>
-      </span> 
-    </p>
+      </div>
+      <paper-spinner active="[[loading]]"></paper-spinner>
+    </div> 
   </template>
   <script>
     Polymer({
@@ -33,7 +37,8 @@
         query: {
           type: String,
           value: ''
-        }
+        },
+        loading: Boolean,
       },
 
       search: function() {

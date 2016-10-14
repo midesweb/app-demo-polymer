@@ -26,21 +26,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       auto
       url="https://gateway.marvel.com:443/v1/public/characters?apikey=e7c7a8f3d7d409ade75377d62de644ed&nameStartsWith={{q}}"
       last-response="{{personajes}}"
+      loading="{{loading}}"
     ></iron-ajax>
 
-    <app-localstorage-document id="elstore" key="fav" data="{{favoritos}}">
-    </app-localstorage-document>
+
+    <app-localstorage-document 
+      id="elstore" 
+      key="fav" 
+      data="{{favoritos}}"
+    ></app-localstorage-document>
 
     <h1>Listado de personajes</h1>
+
     <character-search 
       query="[[q]]"
       on-do-search="doSearch"
+      loading="[[loading]]"
     ></character-search>
+
     <character-list 
       personajes="[[personajes.data.results]]"
       favoritos="[[favoritos]]" 
       on-toggle-fav="toggleFav"
     ></character-list>
+
   </template>
 
   <script>
