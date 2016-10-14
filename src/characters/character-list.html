@@ -1,0 +1,33 @@
+
+<dom-module id="character-list">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+      character-card{
+        margin: 10px;
+      }
+    </style>
+    
+    <template is="dom-repeat" items="[[personajes]]" as="item">
+      <character-card 
+        personaje="[[item]]"
+        favoritos="[[favoritos]]"
+      ></character-card>
+    </template>
+    
+  </template>
+  <script>
+    Polymer({
+      is: 'character-list',
+
+      properties: {
+        personajes: Array,
+        favoritos: Array
+      }
+    });
+  </script>
+</dom-module>

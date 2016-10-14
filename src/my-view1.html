@@ -1,0 +1,90 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-view1">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+      h1{
+        @apply(--paper-font-headline);
+      }
+      p {
+        @apply(--layout-horizontal);
+      }
+      paper-input {
+        @apply(--layout-flex);
+      }
+      paper-icon-button {
+        margin: 15px 0 0 10px;
+      }
+      .lupa {
+        width: 10%;
+        min-width: 70px;
+      }
+    </style>
+    <iron-ajax
+      auto
+      url="https://gateway.marvel.com:443/v1/public/characters?apikey=e7c7a8f3d7d409ade75377d62de644ed&nameStartsWith={{q}}"
+      last-response="{{personajes}}"
+    ></iron-ajax>
+
+    <app-localstorage-document id="elstore" key="fav" data="{{favoritos}}">
+    </app-localstorage-document>
+
+    <h1>Listado de personajes</h1>
+    <p>
+      <paper-input label="Buscar" value="{{q}}"></paper-input> 
+      <span class="lupa">
+        <paper-icon-button icon="search"></paper-icon-button>
+      </span> 
+    </p>
+    <character-list 
+      personajes="[[personajes.data.results]]"
+      favoritos="[[favoritos]]" 
+      on-toggle-fav="toggleFav"
+    ></character-list>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-view1',
+      properties: {
+        personajes: Array,
+        q: {
+          type: String,
+          value: "iron man"
+        },
+        favoritos: {
+           type: Array,  
+           value: function() {
+             return []
+           }
+         }
+      },
+
+      toggleFav: function(e, id) {
+        var index = this.favoritos.indexOf(id);
+        if(index == -1) {
+          this.push('favoritos', id);
+        } else {
+          this.splice('favoritos', index, 1);
+        }
+        this.$.elstore.save('fav');
+      }
+
+    });
+  </script>
+</dom-module>

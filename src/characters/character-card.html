@@ -1,0 +1,108 @@
+<dom-module id="character-card">
+  <template>
+    <style>
+      :host {
+        display: flex;
+      }
+      paper-card {
+        width: 250px;
+        --paper-card-header-image: {
+          width: 250px;
+        }
+        --paper-card-header-image: {
+          max-height: 220px;
+        }
+      }
+      h1 {
+        @apply(--paper-font-headline);
+        color: var(--default-primary-color);
+        font-size: 1.2em;
+        font-family: roboto, sans-serif;
+      }
+      .card-content p{
+        font-size: .9em;
+      }
+      .sindescripcion{
+        color: #999;
+      }
+      .card-actions {
+        color: #fff;
+      } 
+      .favorito {
+        color: #ff9;
+      }
+    </style>
+    <paper-card image="[[personaje.thumbnail.path]].[[personaje.thumbnail.extension]]" 
+    elevation="1">
+      <div class="card-content">
+        <h1>[[personaje.name]]</h1>
+        <p hidden="[[personaje.description]]" class="sindescripcion">
+          No hay una descripción
+        </p>
+        <p hidden="[[!personaje.description]]">
+          <rompe-cadena
+            str="[[personaje.description]]"
+            len="50"
+          ></rompe-cadena>
+        </p>
+      </div>
+      <div class="card-actions">
+        
+        <paper-icon-button class$="{{classfav}}" icon="star" on-tap="toggleFav"></paper-icon-button>
+        
+      </div>
+    </paper-card>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'character-card',
+
+      properties: {
+        personaje: {
+          type: Object,
+          // value: function() {
+          //   return {
+          //     "name": "Sabretooth",
+          //     "description": "Alguna cosa que quieras destacar con este personaje",
+          //     "thumbnail": {
+          //       "path": "http://i.annihil.us/u/prod/marvel/i/mg/1/00/4ce1895117793",
+          //       "extension": "jpg"
+          //     }
+          //   }
+          // }
+        },
+        favoritos: Array,
+        classfav: {
+          type: String,
+          value: ''
+        }
+      },
+      ready: function(){
+        this.isFav(this.personaje.id, this.favoritos);
+      },
+
+      toggleFav: function() {
+        if(this.classfav == '') {
+          this.classfav = 'favorito'
+        } else {
+          this.classfav = ''
+        }
+        this.fire('toggle-fav', this.personaje.id);
+      },
+
+      isFav: function(id, favs) {
+        if(favs.indexOf(id) == -1) {
+          this.classfav = ''
+        } else {
+          this.classfav = 'favorito'
+        }
+      }
+
+    });
+  </script>
+</dom-module>
+
+
+
+<script></script>
