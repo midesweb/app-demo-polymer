@@ -78,8 +78,14 @@
           value: ''
         }
       },
-      ready: function(){
-        this.isFav(this.personaje.id, this.favoritos);
+
+      observers: [
+        'cambiarFav(personaje, favoritos)'
+      ],
+
+      cambiarFav: function(personaje, favoritos) {
+        console.log('en cambiarFav', personaje.id, favoritos)
+        this.isFav(personaje.id, favoritos);
       },
 
       toggleFav: function() {
