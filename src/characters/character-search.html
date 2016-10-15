@@ -16,12 +16,12 @@
         margin: 15px 0 0 10px;
       }
       .lupa {
-        width: 20%;
+        width: 15%;
         display: flex;
       }
     </style>
     <div class="campo">
-      <paper-input label="Buscar" value="{{query}}"></paper-input>
+      <paper-input label="Buscar" value="{{query}}" on-keydown="checkForEnter"></paper-input>
     </div>
     <div class="lupa">
       <div hidden="[[loading]]">
@@ -43,6 +43,12 @@
 
       search: function() {
         this.fire('do-search', this.query);
+      },
+
+      checkForEnter: function (e) {
+        if (e.keyCode === 13) {
+          this.search();
+        }
       }
     });
   </script>

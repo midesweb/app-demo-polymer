@@ -11,15 +11,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="my-view1">
+<dom-module id="my-personajes">
   <template>
     <style include="shared-styles">
       :host {
         display: block;
         padding: 10px;
-      }
-      h1{
-        @apply(--paper-font-headline);
       }
     </style>
     <iron-ajax
@@ -28,7 +25,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       last-response="{{personajes}}"
       loading="{{loading}}"
     ></iron-ajax>
-
 
     <app-localstorage-document 
       id="elstore" 
@@ -54,7 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
     Polymer({
-      is: 'my-view1',
+      is: 'my-personajes',
       properties: {
         personajes: Array,
         q: {
@@ -69,14 +65,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          }
       },
 
-      toggleFav: function(e, id) {
-        var index = this.favoritos.indexOf(id);
-        if(index == -1) {
-          this.push('favoritos', id);
-        } else {
+      toggleFav: function(e, data) {
+        var index = this.favoritos.indexOf(data.id);
+        if(data.isFav && index == -1) {
+          this.push('favoritos', data.id);
+        }
+        if(!data.isFav && index != -1) {
           this.splice('favoritos', index, 1);
         }
         this.$.elstore.save('fav');
+        console.log('favs:', this.favoritos)
       },
 
       doSearch: function(e, q) {

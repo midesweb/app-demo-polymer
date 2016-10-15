@@ -11,7 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="my-view2">
+<dom-module id="my-creditos">
   <template>
     <style include="shared-styles">
       :host {
@@ -22,16 +22,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div class="card">
-      <div class="circle">2</div>
-      <h1>View Two</h1>
-      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
-      <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
+      <h1>Créditos</h1>
+      <p>
+        Los personajes pertenecen al API de Marvel: 
+        <a href="https://developer.marvel.com/">https://developer.marvel.com/</a>
+      </p>
+      <p>
+        El desarrollo es de Miguel Angel Alvarez <a href="https://twitter.com/midesweb">@midesweb</a>, como demo del 
+        <a href="http://escuela.it/cursos/desarrollo-aplicaciones-polymer/">curso de desarrollo de apps con Polymer</a> de EscuelaIT</p>
     </div>
   </template>
 
   <script>
     Polymer({
-      is: 'my-view2'
+      is: 'my-creditos'
     });
   </script>
 </dom-module>

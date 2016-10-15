@@ -1,0 +1,35 @@
+
+<dom-module id="character-fav">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      .favorito {
+        color: #ff9;
+      }
+    </style>
+    <paper-icon-button 
+      id="star" 
+      icon="star"
+    ></paper-icon-button>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'character-fav',
+
+      properties: {
+        isFav: {
+          type: Boolean,
+          value: false,
+          observer: 'cambiarClass'
+        }
+      },
+
+      cambiarClass: function(isFav) {
+        this.toggleClass('favorito', isFav, this.$.star);
+      }
+    });
+  </script>
+</dom-module>
